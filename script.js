@@ -23,15 +23,10 @@ async function commonProblems() {
   try {
     const submissionsByUsers = await Promise.all(userDataPromises);
     const acceptedProblemsByUsers = getAcceptedProblemsByUsers(submissionsByUsers);
-    const commonProblems = getCommonProblems(acceptedProblemsByUsers);
+    const acceptedProblemsByUsersFiltered = filterByRating(filterByTag(acceptedProblemsByUsers, tags), ratings);
+    const commonProblems = getCommonProblems(acceptedProblemsByUsersFiltered);
 
-    let filters = [
-      data => filterByRating(data, ratings),
-      data => filterByTag(data, tags)
-    ];
-    filteredCommonProblems = applyFilters(commonProblems, filters)
-
-    displayCommonProblems(filteredCommonProblems);
+    displayCommonProblems(commonProblems);
   } catch (error) {
     console.error('Error getting common problems:', error);
   }
@@ -59,17 +54,32 @@ function getCommonProblems(acceptedProblemsByUsers) { // Interssection of all us
   );
 }
 
-function filterByRating(problems, ratings) {
+function filterByRating(problemsByUser, ratings) {
   if (ratings.length === 0) {
-    return problems;
+    return problemsByUser;
   }
-  return problems.filter(problem => problem.hasOwnProperty('rating') && ratings.includes(problem.rating.toString()))
+  return problemsByUser.map(
+    problems =>
+      problems.filter(
+        problem =>
+          problem.hasOwnProperty('rating') &&
+          ratings.includes(problem.rating.toString())
+      )
+  );
 }
-function filterByTag(problems, tags) {
+
+function filterByTag(problemsByUser, tags) {
   if (tags.length === 0) {
-    return problems;
+    return problemsByUser;
   }
-  return problems.filter(problem => problem.hasOwnProperty('tags') && tags.every(tag => problem.tags.includes(tag)));
+  return problemsByUser.map(
+    problems =>
+      problems.filter(
+        problem =>
+          problem.hasOwnProperty('tags') &&
+          tags.every(tag => problem.tags.includes(tag))
+      )
+  );
 }
 
 function displayCommonProblems(problems) {

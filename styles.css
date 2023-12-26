@@ -2,11 +2,12 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: #222;
+  color: #fff;
 }
 
 header {
-  background-color: #333;
+  background-color: #111;
   color: #fff;
   text-align: center;
   padding: 20px 0;
@@ -20,9 +21,9 @@ h1 {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: #333; /* Darken container background */
+  color: #fff; /* Change text color to light */
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-section {
@@ -39,25 +40,29 @@ input[type="text"] {
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: 1px solid #777; /* Update input border color */
+  background-color: #444; /* Darken input background */
+  color: #fff; /* Change text color to light */
 }
 
 button {
   padding: 8px 15px;
   border: none;
-  background-color: #333;
+  background-color: #777;
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: #999;
 }
 
 #problems-list {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #777;
   border-radius: 3px;
   min-height: 100px;
+  background-color: #333;
+  color: #fff;
 }

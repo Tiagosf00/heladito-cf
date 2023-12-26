@@ -21,8 +21,8 @@ h1 {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #333; /* Darken container background */
-  color: #fff; /* Change text color to light */
+  background-color: #333;
+  color: #fff;
   border-radius: 5px;
 }
 
@@ -40,9 +40,31 @@ input[type="text"] {
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 3px;
-  border: 1px solid #777; /* Update input border color */
-  background-color: #444; /* Darken input background */
-  color: #fff; /* Change text color to light */
+  border: 1px solid #777;
+  background-color: #444;
+  color: #fff;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  width: calc(20% - 70px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  border: 1px solid #777;
+  background-color: #444;
+  color: #fff;
+  margin-right: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
 }
 
 button {
@@ -65,4 +87,65 @@ button:hover {
   min-height: 100px;
   background-color: #333;
   color: #fff;
+}
+
+.problem-cards {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.problem-card {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+  width: calc(33.33% - 10px);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.problem-card-ac {
+  background-color: #306844;
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+  width: calc(33.33% - 10px);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.problem-card-wa {
+  background-color: #6f0000;
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+  width: calc(33.33% - 10px);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.card-content a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .problem-card {
+    width: calc(50% - 10px);
+  }
+}
+@media screen and (max-width: 480px) {
+  .problem-card {
+    width: 100%;
+  }
 }

@@ -7,17 +7,27 @@
 </head>
 <body>
   <header>
-    <h1>me recuso a perder pra esses lixos script</h1>
+    <h1 id="titleHeader"> </h1>
   </header>
   <main>
     <section class="container">
       <div class="input-section">
-        <label for="handles">Codeforces Handles (comma-separated):</label>
-        <input type="text" id="handles" placeholder="e.g. handle1, handle2, handle3">
+
+        <label for="user-handle">Your Codeforces Handle:</label>
+        <input type="text" id="user-handle" placeholder="e.g. Tiagodfs">
+
+        <label for="handles">Reference Codeforces Handles:</label>
+        <input type="text" id="handles" placeholder="e.g. tfg, Nson, ffao">
+
         <label for="tags">Tags:</label>
         <input type="text" id="tags" placeholder="e.g. string, geometry, data structure">
-        <label for="ratings">Ratings:</label>
-        <input type="text" id="ratings" placeholder="e.g. 1500, 1600, 1700">
+        
+        <label for="start">Rating Range:</label>
+        <form>
+          <input type="number" id="start-rating" name="start-rating" placeholder="e.g. 1600">
+          <input type="number" id="end-rating" name="end-rating" placeholder="e.g. 2100"><br><br>
+        </form>
+
         <button onclick="commonProblems()">Common Problems</button>
       </div>
       <div id="problems-list">

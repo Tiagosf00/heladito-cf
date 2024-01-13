@@ -48,6 +48,21 @@ async function fetchDataForHandle(handle) {
   }
 }
 
+async function fetchDataForHandlesSequentially(handles) {
+  const submissions = [];
+
+  for (const handle of handles) {
+    try {
+      const data = await fetchDataForHandle(handle);
+      submissions.push(data);
+    } catch (error) {
+      console.error(`Error fetching data for ${handle}:`, error);
+    }
+  }
+
+  return submissions;
+}
+
 async function commonProblems() {
 
   displayLoading();
@@ -61,8 +76,7 @@ async function commonProblems() {
     const submissionsFromUser = await fetchDataForHandle(userHandle);
     const acceptedProblemsFromUser = getAcceptedProblems(submissionsFromUser);
     
-    const handlesDataPromises = handles.map(handle => fetchDataForHandle(handle));
-    const submissionsFromHandles = await Promise.all(handlesDataPromises);
+    const submissionsFromHandles = await fetchDataForHandlesSequentially(handles);
 
     const acceptedProblemsFromHandles = submissionsFromHandles.map(submissions => getAcceptedProblems(submissions));
     const acceptedProblemsFromHandlesFiltered = filterByRating(filterByTag(acceptedProblemsFromHandles, tags), ratingRange);

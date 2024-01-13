@@ -164,6 +164,11 @@ function displayCommonProblems(problemsWithCount, acceptedProblemsFromUser, subm
     problemsList.innerHTML = '<p>No common problems found.</p>';
     return;
   }
+  const maxElements = 1000;
+  if (problemsWithCount.length > maxElements) {
+    problemsWithCount = problemsWithCount.slice(0, -problemsWithCount.length + maxElements);
+  }
+
 
   const ul = document.createElement('ul');
   ul.classList.add('problem-cards');

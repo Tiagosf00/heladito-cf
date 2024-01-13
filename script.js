@@ -6,6 +6,7 @@ const titles = [
   "UFMG Lixo",
   "UFRN Lixo",
   "UFAL Lixo",
+  "IME Lixo",
   "¿¿Heladito??",
   "Is that Tiagobfs?",
   "Preto Branco Branco Preto Preto",
@@ -65,9 +66,9 @@ async function commonProblems() {
 
     const acceptedProblemsFromHandles = submissionsFromHandles.map(submissions => getAcceptedProblems(submissions));
     const acceptedProblemsFromHandlesFiltered = filterByRating(filterByTag(acceptedProblemsFromHandles, tags), ratingRange);
-    const commonProblems = getCommonProblems(acceptedProblemsFromHandlesFiltered);
+    const commonProblemsWithCount = getCommonProblemsWithCount(acceptedProblemsFromHandlesFiltered);
 
-    displayCommonProblems(commonProblems, acceptedProblemsFromUser, submissionsFromUser);
+    displayCommonProblems(commonProblemsWithCount, acceptedProblemsFromUser, submissionsFromUser);
   } catch (error) {
     console.error('Error getting common problems:', error);
   }
@@ -81,16 +82,35 @@ function getAcceptedProblems(submissions) {
   );
 }
 
-function getCommonProblems(acceptedProblemsFromHandles) { // Interssection of all users
+function getCommonProblemsWithCount(acceptedProblemsFromHandles) {
   if (acceptedProblemsFromHandles.length === 0) {
     return [];
   }
-  return acceptedProblemsFromHandles[0].filter(
-    problemA =>
-    acceptedProblemsFromHandles.every(
-      problems => problems.some(problemB => JSON.stringify(problemA) === JSON.stringify(problemB))
-    )
-  );
+
+  const problemCountMap = new Map();
+
+  acceptedProblemsFromHandles.forEach(problems => {
+    problems.forEach(problem => {
+      const problemString = JSON.stringify(problem);
+
+      if (problemCountMap.has(problemString)) {
+        problemCountMap.set(problemString, problemCountMap.get(problemString) + 1);
+      } else {
+        problemCountMap.set(problemString, 1);
+      }
+    });
+  });
+
+  const commonProblemsWithCount = [];
+
+  problemCountMap.forEach((count, problemString) => {
+    const problem = JSON.parse(problemString);
+    commonProblemsWithCount.push({ problem, count });
+  });
+
+  commonProblemsWithCount.sort((a, b) => b.count - a.count);
+
+  return commonProblemsWithCount;
 }
 
 function filterByRating(problemsByUser, ratingRange) {
@@ -122,11 +142,11 @@ function filterByTag(problemsByUser, tags) {
 
 // Display functions
 
-function displayCommonProblems(problems, acceptedProblemsFromUser, submissionsFromUser) {
+function displayCommonProblems(problemsWithCount, acceptedProblemsFromUser, submissionsFromUser) {
   const problemsList = document.getElementById('problems-list');
   problemsList.innerHTML = '';
 
-  if (problems.length === 0) {
+  if (problemsWithCount.length === 0) {
     problemsList.innerHTML = '<p>No common problems found.</p>';
     return;
   }
@@ -134,9 +154,9 @@ function displayCommonProblems(problems, acceptedProblemsFromUser, submissionsFr
   const ul = document.createElement('ul');
   ul.classList.add('problem-cards');
 
-  problems.forEach(problem => {
+  problemsWithCount.forEach(({ problem, count }) => {
     const li = document.createElement('li');
-    
+
     if (acceptedProblemsFromUser.some(problemUser => JSON.stringify(problem) === JSON.stringify(problemUser))) {
       li.classList.add('problem-card-ac');
     } else if (submissionsFromUser.some(submission => JSON.stringify(problem) === JSON.stringify(submission.problem))) {
@@ -148,16 +168,25 @@ function displayCommonProblems(problems, acceptedProblemsFromUser, submissionsFr
     const cardContent = document.createElement('div');
     cardContent.classList.add('card-content');
 
+    const contentContainer = document.createElement('div');
+    contentContainer.classList.add('content-container');
+
     const problemLink = document.createElement('a');
-    // no rating? gym problem
     let problemType = (problem.hasOwnProperty('rating') ? 'contest' : 'gym');
     problemLink.href = `https://codeforces.com/${problemType}/${problem.contestId}/problem/${problem.index}`;
     problemLink.textContent = `${problem.name}`;
 
-    cardContent.appendChild(problemLink);
+    const countElement = document.createElement('span');
+    countElement.textContent = `${count}`;
+    countElement.classList.add('count-value');
+
+    contentContainer.appendChild(problemLink);
+    contentContainer.appendChild(countElement);
+    cardContent.appendChild(contentContainer);
     li.appendChild(cardContent);
     ul.appendChild(li);
   });
+
   problemsList.appendChild(ul);
 }
 

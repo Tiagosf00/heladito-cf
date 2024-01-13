@@ -132,6 +132,7 @@ button:hover {
 .card-content a {
   text-decoration: none;
   color: inherit;
+  position: relative;
 }
 
 h3 {
@@ -148,4 +149,36 @@ h3 {
   .problem-card {
     width: 100%;
   }
+}
+
+.problem-cards li .count-value {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: 0; /* Remove margin-left from count value */
+}
+
+.problem-card-ac .count-value {
+  background-color: #2c9651; /* Adjust green color according to your preference */
+}
+
+.problem-card-wa .count-value {
+  background-color: #860000; /* Adjust orange color according to your preference */
+}
+
+.problem-card .count-value {
+  background-color: #646464;
+}
+
+.problem-cards li .content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.problem-cards li .content-container a {
+  /* Center the title within its available space */
+  text-align: center;
+  width: 100%;
 }

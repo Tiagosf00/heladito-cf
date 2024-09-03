@@ -6,12 +6,14 @@ const titles = [
   "UFMG Lixo",
   "UFRN Lixo",
   "UFAL Lixo",
+  "UFCG Lixo",
+  "UDESC Lixo",
+  "UFPE Lixo",
   "IME Lixo",
   "¿¿Heladito??",
   "Is that Tiagobfs?",
   "Preto Branco Branco Preto Preto",
   "Edson vem pro darcy plmds",
-  "O cara vai levar 3 cinza pra mundial mano...",
   "Frutos do Goiás",
   "Vamos pra Goiania?",
   "Gangue do sorvete de Maracujá",
@@ -22,7 +24,13 @@ const titles = [
   "Wrong answer on pretest 2",
   "Jogando como nunca, perdendo como sempre",
   "Ele é bom mas não é 3 porra",
+  "Ele é bom e é três ;-;"
   "Namoral que tu não gosta de geometria?",
+  "O cara é bom né, não tem o que fazer",
+  "Transformou o cara em subset",
+  "Lutar com lagartos gigantes na terra oca?",
+  "Partiu recuperar nossa mundial perdida na terra oca",
+  "Russia pague nossos 4.5kdol imediatamente"
 ];
 
 function setRandomTitle() {

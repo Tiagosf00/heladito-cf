@@ -24,7 +24,7 @@ const titles = [
   "Wrong answer on pretest 2",
   "Jogando como nunca, perdendo como sempre",
   "Ele é bom mas não é 3 porra",
-  "Ele é bom e é três ;-;"
+  "Ele é bom e é três ;-;",
   "Namoral que tu não gosta de geometria?",
   "O cara é bom né, não tem o que fazer",
   "Transformou o cara em subset",
